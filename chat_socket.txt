@@ -1,0 +1,212 @@
+c language - socket
+
+*server socket
+------------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <pthread.h>
+
+#define CLNT_MAX 10
+
+int g_clnt_sock[CLNT_MAX];
+int g_clnt_count =0;
+int main(int argc, char ** argv) {
+
+        int serv_sock;
+        int clnt_sock;
+
+        struct sockaddr_in clnt_addr;
+        int clnt_addr_size;
+
+       struct sockaddr_in serv_addr;
+        serv_sock = socket(PF_INET,SOCK_STREAM,0);
+
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+        serv_addr.sin_port=htons(7989);
+
+        if(bind(serv_sock,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) == -1){
+                printf("bind error");
+        }
+
+        if(listen(serv_sock,5) == -1){
+                printf("listen error");
+        }
+
+        char buff[200];
+        int recv_len =0;
+        while(1){
+                clnt_addr_size=sizeof(clnt_addr);
+                clnt_sock = accept(serv_sock,(struct sockaddr *)&clnt_addr,&clnt_addr_size>
+
+               g_clnt_sock[g_clnt_count++] = clnt_sock;
+
+                while(1){
+                recv_len = read(clnt_sock,buff,200);
+
+                printf("recv :  ");
+                for(int i=0; i<recv_len ; i++){
+
+                        printf("%02x ",(unsigned char)buff[i]);
+                }
+                printf("\n");
+                }
+        }
+}
+
+-------------------------------------------------------------
+*client server - socket
+
+include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <pthread.h>
+
+#define BUFFSIZE 100
+#define NAMESIZE 20
+
+int StoHEX(char fi, char sc);
+void error_handling(char *msg);
+void * send_message(void * arg);
+void * recv_message(void * arg);
+
+char message[BUFFSIZE];
+
+int main(int argc,char **argv){
+
+        int sock;
+        struct sockaddr_in serv_addr;
+        pthread_t snd_thread, rcv_thread;
+        void* thread_result;
+
+
+        sock=socket(PF_INET, SOCK_STREAM, 0);
+        if(sock==-1){
+                printf("socket error");
+        }else{
+                printf("Socket has been created\n");
+        }
+
+        memset(&serv_addr, 0,sizeof(serv_addr));
+        serv_addr.sin_family=AF_INET;
+        serv_addr.sin_addr.s_addr=inet_addr("127.0.0.1");
+        serv_addr.sin_port=htons(7989);
+
+ if(connect(sock,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) == -1){
+        printf("connect error\n");
+        }else{
+        printf("connect success\n");
+        }
+
+        unsigned char msg[100] = {0x01,2,3,4,5,6,1,2,3,4,2,1,2,3,0x0c};
+
+        printf("while before\n");
+        while(1){
+        printf("send : \n");
+
+         write(sock,msg,15);
+                sleep(2);
+        }
+
+        printf("while end\n");
+        close(sock);
+        return 0;
+
+}
+
+---------------------------------------------------------------
+>gcc -o server server.c
+>gcc -o client client.c
+>./client
+>./server
+
+
+
+--------------------------------------------------------------
+*thread.c
+
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+
+int a=0;
+
+void * thread1(void * arg){
+
+        printf("arg : %d\n",(int)arg);
+
+        while(1){
+                printf("thread1 a[%d]\n",++a);
+                sleep(2);
+        }
+
+        return NULL;
+}
+int main(){
+        pthread_t s_thread;
+        int b = 77;
+        pthread_create(&s_thread, NULL,thread1,(void
+        *)b);
+
+        pthread_join(s_thread, NULL);
+
+}
+
+
+>gcc thread.c -lpthread
+
+-------------------------------------------------------------------
+
+*visual studio code
+
+1. backend setting : database setting, websock setting
+2. frondend setting : websocket setting
+3. backedn frontend linking test
+4. user login
+5. send and receive  message
+
+
+1. npm  init -y  : initialize
+2. npm i express , mongoose, cors, dotenv, http ->npm i ~ 각각 실행
+  - express : make server ->database server를 올려 놓음 
+  - mongoose : database server ->mongo db 쉽게 쓰도록 도와주는 library
+  - cors : backend and frontend를 연결 통신하는데 문제가 없게 도와주는 library
+  - dotenv : 실치된 환경변수를 불러오는 library
+  - http : sever를 만든 여기에 websocket 올려 놓는데 쓰임
+3. npm i socket.io  ->중요!
+   >npm list  ->목록보기
+
+   *database - user information, message information  ->Models 폴더에 저장함
+    -user.js, chat.js  ->schema :설계도 형태 설명
+    - user.js 와 chat.js 를 연결할 수 있는 program 은 
+       app.js 생성(express server에 연결, 데이터베이스 주소=.env 환경변수 설정)
+     -----> 여기까지 database setting 완료
+
+   *websocket setting   -> index.js : http를 이용해 express server와 database를 올림
+     - index.js는 websocket server다.
+     - io.js(emit():말하는 함수, on(): 듣는 함수)
+
+4. npm install nodemon  ->reloading
+   >nodemon app.js  -> server starting
+
+
+* database 종료 : 
+  -관계형 database SQL (MySQL, Oracle, SQLite)
+  -비관계형 database NoSQL(MongoDB, Redis, Hbase) : 가벼운 project
+    ->mongo 특징 :document(key:value-JSON형택) group(collection)
+
+
+
+
