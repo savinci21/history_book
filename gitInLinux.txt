@@ -23,3 +23,4 @@
      : In the password, enter the copied personal access token.
  
   *move file : >cp filename.txt /path/..../Newfolder/
+  *Mac does not require tokens
