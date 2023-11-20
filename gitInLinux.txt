@@ -24,3 +24,7 @@
  
   *move file : >cp filename.txt /path/..../Newfolder/
   *Mac does not require tokens
+  *git in window does not require tokens
+  *Only Linux requires tokens
+  *The method works best for uploading.
+     1.git clone -> git add . -> git commit -m "" -> git push -u origin main
