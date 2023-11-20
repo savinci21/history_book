@@ -1,0 +1,25 @@
+1. github.com/savinci 21 -> carate a folder ㅣlocal computer -> create a folder 
+2. The best wqy to use git
+   - Create a folder in repository in github.com and create an address.
+3. git clone https://github.com/savinci21/Newfolder in local compter folder.
+   - Then, it will be automatically remoted
+   - cd Newfolder  -> Must work in this folder
+4. git init in local
+5. git status
+6. git remote -v  : Omitable
+7. git branch -M main  :Omitable
+8. git remote add origin https://github.com/savinci21/Newfolder  : Omitable
+9. git log
+10. git config --list  : username, useremail  -> The end is q
+11. git config --global user.naem "savinci21"
+12. git config --global user.email "lowdeep@gmail.com"
+13. git add .
+14. git commit -m "message"
+15. git push -u origin main
+  - username :
+  - password :
+  -> Create in the token 2021
+  -> github username -> settings -> Developer sttings -> Personal access tdkens -> Generate new token all_ click
+     : In the password, enter the copied personal access token.
+ 
+  *move file : >cp filename.txt /path/..../Newfolder/
