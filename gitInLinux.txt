@@ -28,3 +28,13 @@
   *Only Linux requires tokens
   *The method works best for uploading.
      1.git clone -> git add . -> git commit -m "" -> git push -u origin main
+
+-------------------------------------------------------------------------------------
+* How to upload back from the created git  ->Run in the folder where .git is created.
+
+>git pull origin main   ->Remote and local storage files must be the same.
+>git add .  or Files to be modified or added
+>git commit -m "message word"
+>git push origin main 
+--------------------------------------------------------------------------------------------
+
