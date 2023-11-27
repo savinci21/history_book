@@ -40,5 +40,10 @@
 >git add .  or Files to be modified or added
 >git commit -m "message word"
 >git push origin main 
+
+* How to clone from remote to local storage
+>git clone https:///github.com/savinci21/existing folder
+ -> >be created existing folder 
+   ----> And then do it in the same way as above
 --------------------------------------------------------------------------------------------
 
