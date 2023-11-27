@@ -32,7 +32,8 @@
 -------------------------------------------------------------------------------------
 * How to upload back from the created git  ->Run in the folder where .git is created.
   (원격저장소와 로컬저장소의 내용이 변동이 없을 때 먼저 git pull origin main 한 후 변동되거나 
-   추가한 파일을 .git이 있는 폴더로 이동 시킨 후 git add . and git commit and git push origin main)
+   추가한 파일을 .git이 있는 폴더로 이동 시킨 후 git add . and git commit and git push origin main
+   또는 원격저장소에서 파일을 변경하고 로컬로 파일을 가져올 때도 해당됨)
    
 
 >git pull origin main   ->Remote and local storage files must be the same.
