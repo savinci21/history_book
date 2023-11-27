@@ -1,0 +1,48 @@
+*linux 를  구축하는 이유는 server구축하여 통신하기 위함
+
+1. ssh 실습  
+ * openssh_server(program)를 구축하여 원거리에서도 작업을 할 수 있음 
+
+>apt install openssh_server  ->openssh-server download
+>systemctl restart  ssh  ->ssh server 가동
+>systemctl status ssh ->작동확인
+>q -> 종료
+>ufw allow 22/tcp ->방화벽 해제 반드시 필요
+>systemctl enable ssh ->항상 스타트상태
+
+
+*putty : address
+>user, password  /etc/passwd에서 user 확인
+
+2. xrdp 실습 ->window
+>apt -y install xrdp
+>systemctl restart  xrdp  ->xrdp server 가동
+>systemctl status xrdp ->작동확인
+>ufw allow 3389/tcp
+>window >탐색기 >원격데스크탑연걸>192.168.111.100>username/password
+
+3. telnet 
+
+ -1>apt -y install xinetd telnetd  ->telnet server 설치
+ -2>cd /etc/xinetd.d 
+     >touch telnet >gedit telnet  ->설정파일 편집
+ -3>adduser teluser  ->telnet에서 사용할 user 만들기
+    >password
+ -4>systemctl restart xinetd  ->telnet service 가동
+    >systemctl status xinetd
+ -5>ufw allow 23/tcp  ->telnet port 열기
+ -6>telnet 192.168.111.100  ->자기자신에게 접속하기
+    >username
+    >password
+    >원격에서는 telnet client soft program이 필요
+    >탐색기>windows 기능 >check telnet client
+   
+  -7>관리자powershell
+     >ping 192.168.111.100  ->network 확인
+     >telnet 192.168.111.100   -> connect /username/password
+     >exit
+     >putty >telnet 23
+     >su  root변환
+
+
+

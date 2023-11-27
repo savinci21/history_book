@@ -1,0 +1,48 @@
+>start https://dotnet.microsoft.com/en-us  
+   ->download>.net 8.0
+>dotnet --version
+>dotnet --list-sdks
+>dotnet --list-runtimes
+  제거는 *window 앱&기능->core or .net 검색 삭제함
+>mkdir c#
+>cd c#
+
+--------------------------------------------------
+*How to create a console project 
+
+>md console
+>cd console
+>c#>dotnet new list
+>c#>dotnet new console :create coconsole project 
+  *dotnet new console -o HellowConsole : cosole project 생성
+>c#>dir
+>c#>Console>dir
+>c#>Console>type Program.cs
+>c#>Console>donet run  ->실행
+>c#>Console>notepad.exe Program.cs  : 수정
+>c#>Console>dotnet run
+>c#>Console>code . ->open vscode(c# package download)
+
+--------------------------------------------------
+*How to create a webapp project 
+
+>md web
+>cd web
+>web>dotnet new webapp : web browser에서 실행 가능
+>web>dotnet run
+   ---building
+   info: http://localhost:0000
+  stop :ctrl+c 
+>dir ->cd pages ->notepad.exe Index.cshtml  ->수정
+ >cd ..
+>savinci>web>dotnet run
+
+------------------------------------------------------------
+Visual Studio 2022
+
+>.NET desktop development  ->console
+>ASP.NET and web development  ->webapp
+
+1.vs2022 run->Continue without code ->console app
+   -> check "Do not use top-level statement" ->be created Program.cs
+

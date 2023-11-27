@@ -1,0 +1,62 @@
+>mkdir workspace
+>pip install pygame
+>mkdir pygame_basic
+>cd pygame_basic
+>create 1_create_frame.py
+>save "import pygame"  ->run
+>file->preferences->setting ->linting->uncheck enabled 
+
+*library > package > module  ->internel/externel(pip)
+>pip --version
+>pip list | findstr /i py  (window)/  pip list | grep -i py (mac, linux)
+>python -m pip install --upgrade pip
+>pip install library==version  / pip uninstall library
+
+*You must match Python version and library
+
+1.>img = pygame.image.load(".img"): -> image 불러오기
+2.>rect = img.get_rect() -> rect.left = x, rect.right=y  ->while 등 loop 안에 넣기
+3.>screen.blit(img, rect)
+4.>pygame.display.update()
+5.>pygame.quit()
+
+
+#가상환경 만들기(selenium4) ->최신버전
+>python -m venv selenium4(/path/to/new/virtual/environment_ 폴더이름) ->selenium4라는 폴더가 만들어짐
+>cd /selenium/scripts #powershell로 변경하여 아래 명령어 입력
+>./activate
+->가상환경 작동 시키고 설치해야 가상환경에서 실현됨
+>pip install selenium
+>python --version
+>pip list ->version 확인
+>pip freeze
+>pip install webdriver_manager (chromedriver를 자동으로 업데이트 시켜줌)
+  *파이선 가상환경 버전을 맞추어줘야 함 selenium4.venv 체크
+>googling.py 코드 실행됨
+
+#가상환경만들기
+>python -m venv selenium4(/path/to/new/virtual/environment_ 폴더이름) ->selenium4라는 폴더가 만들어짐
+>cd /selenium/scripts #powershell로 변경하여 아래 명령어 입력
+>./activate
+>pip --version
+>pip list
+>pip freeze
+>python -m venv xlwings
+>cd xlwings/scripts ->./activate  ->가상환경 관리자 powershell에서 권한으로 활성화 실행은 scripts 폴더에서
+    ->python 실행은 본 폴더에서
+>pip install xlwings
+>pip install -r requirements.txt
+>vscode - ctrl+shift+p >
+>./deactivate  ->가상환경나가기
+>rmdir 폴더이름 ->가상환경 삭제하기
+
+
+
+----------------------------------------------
+*linux에서 python 실행
+>bash Miniconda3-latest-Linux-x86_64.sh
+>bash
+>conda create -n sqler_lec python=3.11  ->conda 가상환경설치
+>conda env list  ->가상환경 list보기
+>conda activate sqler_lec  ->실행 
+>python --version

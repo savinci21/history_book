@@ -1,0 +1,8 @@
+*user 생성
+>adduser savinci  ->pw,folder 모두 생김
+*user 확인
+>cat /etc/passwd
+>cut -f1 -d: /etc/passwd   ->아이디만 짤라서 보여줌
+*root로 돌아갈때는 exit
+*일반계정으로 변경할때
+>su savinci
