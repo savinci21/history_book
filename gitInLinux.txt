@@ -39,7 +39,8 @@
 >git pull origin main   ->Remote and local storage files must be the same.
 >git add .  or Files to be modified or added
 >git commit -m "message word"
->git push origin main -> git push origin +main으로도 해결 가능ㄴㄴ
+>git push origin main -> git push origin +main으로도 해결 가능하고 git에서 수정사항이나 add 파일이 있을때 이 명령어를 사용한다.
+  ---> 즉 로컬에서 수정하거나 추가한 파일을 올릴때는 add로 하고 repository에서 변경하나 add 파일은 pull 명령어로 내려 받는다
 
 * How to clone from remote to local storage
 >git clone https:///github.com/savinci21/existing folder
