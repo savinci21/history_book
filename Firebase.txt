@@ -1,0 +1,99 @@
+>Firebase >musicBlog
+>node -v/ npm -v
+
+>sudo su
+>carrot> npm install -g firebase-tools
+
+
+* uninstall node
+>pwd>/usr/local/include/
+  >sudo su
+  >rm -rf node.  ->uninstall node
+>/usr/local/include/lib
+   >rm -rf node_modules/
+>/usr/local/bin
+   >rm -rf  node npm nix
+—————————————————————————————————
+* web app
+
+
+>create folder> create folder
+>npm install firebase
+>firebase>hosting ->terminal ->npm i -g firebase-tools
+*how to hosting
+>create index.html -> connect CDN(on head or body)
+
+*app 생성 및 배포
+>open the terminal (sudo su)
+>npm install firebase. -> 가상환경을 만듬
+>npm install -g firebase-tools.  ->firebase 명령어 생성
+>firebase login. 
+>firebase logout
+>firebase login
+>yes->계정선택 ->허용 ->woohoo CLI successful
+>firebase init.   -> 초기화
+>use space bar >select hosting, emulators
+ - use an existing project
+ - select an existing folder
+ - write public
+ - port 5002
+>firebase serve. ->반드시 해야함
+>localhost:5002
+>cd public
+>firebase deploy -> 배포 웹도메인 생성됨 musicblog-11b2e.firebaseapp.com/ …-11b2e.web.app
+>after modifying ->firebase deploy
+
+
+
+
+
+
+
+
+
+# Firebase (no vue)
+ .Cloud Storage .Firebase(hosting) .Firebase(messaging) .Firestore
+
+
+*Authenticaton
+>google > firebase >make a project >default
+>name project >앱에 firebase를 추가하여 시작하기 iOS,안드로이드,web선택 >name>앱등록
+  ->sdk script tag >return console
+>빌드 >authentication>시작하기>email/password>사용설정 두개 >저장
+
+>visual studio code
+>new folder>html
+>firebase>nameproject>설정>sdk cdn 복사 후 html에 붙여넣기
+>html>console.log(app)입력 후 >browser에서 console에서 연결확인 : firebase 연결됨
+ *firebase ‘?’ 에서 개발자문서에서 참조 >이메일 비밀번호 인증 코드 복사 ..시작하기
+>회원가입 만들기
+  -이메일과 비밀번호로 계정만들기
+  -사용자 로그인 처리
+>로그인 만들기
+
+
+#vue firebase(@vue/cli)
+
+>node -v
+>npm -v : node package maniger : download and upload
+>(sudo)npm install -g yarn.  :전역적으로 -g. ->npm 대신 빨리 다운로드 됨
+>yarn -v
+>(sudo)npm i -g @vue/cli
+>vue —version
+
+*mac에서 npm사용시 >su >enter >password >sh-3..2# 에서 사용함 linux 처럼 사용가능함
+
+>changhwansa>savinci>vuefirebase> mkdir projects >cd projects
+>vue create test
+>cd test
+>yarn serve. : server 동작함
+
+mkdir test-node > npm init. : javascript는 web에서만 작동 python는 pip
+
+>vue create  newfoler(test) -> 새로운 test앱 생성 nodes의 npm init 동
+  >App.vue(main template)
+>vscode >new terminal > vue add vuetify.  -> vuetify 앱환경이 설정됨 
+
+
+
+
