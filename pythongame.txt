@@ -60,3 +60,18 @@
 >conda env list  ->가상환경 list보기
 >conda activate sqler_lec  ->실행 
 >python --version
+
+
+---------------------------------------
+python - json 활용
+import json
+
+
+x = '{"name" : "chang"}'
+y = json.loads(x)
+print("open()없이: " + y["name"])
+
+jib = open('test/test.json')
+jib2 = json.load(jib)  ->역직렬화 
+jib3 = json.dump(jib2)  ->직렬화 json 화
+print("open()사용해서: " + jib2[0]["name"]["firstname"])

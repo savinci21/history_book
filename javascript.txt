@@ -1,0 +1,34 @@
+const fs = require('fs');
+const path = require('path');
+const test = fs.readFileSync(path.join(__dirname, "/test/test.json"));
+const ptest = JSON.parse(test);
+
+
+const jibli = fs.readFileSync(path.join(__dirname, "/test/jibli.json"));
+const jib = JSON.parse(jibli);  ->역직렬화
+
+const jib2 = JSON.stringify(jib);  ->직열화 json 화
+
+
+console.log(ptest[0].name.firstname);
+console.log(ptest[0].name.hoby);
+console.log(ptest[1]["name"]["firstname"]);
+console.log(ptest[1]["name"]["hoby"]);
+console.log(ptest[2]["name"]["hoby"]);
+
+var counter = 0;
+if (ptest[0].name.firstname == "kim") {
+    counter++;
+}
+
+console.log("있음 :" + counter);
+
+console.log("이름: " + jib.지브리ost리스트[0].name, ", 노래: " + jib.지브리ost리스트[0].song);
+console.log("이름: " + jib.지브리ost리스트[1].name, ", 노래: " + jib.지브리ost리스트[1].song);
+
+
+const jibstring = JSON.stringify(jib);
+console.log(typeof (jibstring));
+console.log(jibstring);
+console.log(typeof (jib));
+console.log(jib);
