@@ -1,0 +1,123 @@
+[Linux] 환경변수 설정 및 해제하기: export, printenv, unset, path
+환경변수(Operating System Environment Variable)란 운영체제에 사용되는 변수로, 
+컴퓨터 시스템 전반에 걸쳐 유지되는 값을 저장한 변수입니다. 
+환경변수는 일반적으로 시스템의 경로, 파일의 위치, 사용자 이름, 로그인 정보 등과 
+같은 정보를 저장해 놓고, 여러 응용 프로그램에서 환경변수를 사용할 수 있습니다.
+윈도우의 경우 "시스템 속성"에서 환경 변수를 설정할 수 있으며 
+Unix/Linux에서는 "export"  명령어를 이용해 환경변수를 설정합니다.
+
+#환경변수 설정 $ export myip='localhost'
+#셀의 환경변수 확인 $ printenv
+
+"env" 명령어 역시 환경변수를 설정할 수 있는 데, 
+export 명령어와의 차이는 어떤 프로세스(명령어)를 실행하는 셀에서 환경 변수 설정 자체는 변함이 없고 
+앞으로 실행할 프로세스와 자식 프로세스만 다른 환경변수를 설정합니다.
+
+#환경변수 설정하기  $ env myip="other"
+#셀의 환경변수 확인 $ printenv
+#환경변수 삭제하기  $ unset myip
+
+ $PATH 환경변수란?
+기본으로 설정된 환경변수 중 중요도가 매우 높은 $PATH 환경 변수입니다. 
+$PATH 환경변수는 실행 파일을 검색할 디렉토리를 셸을 알려주는 콜론으로 구분된 디렉토리 목록입니다. 
+보통 흔히 사용하는 "ls" 명령어도 $PATH 환경변수가 설정되어 있지 않다면 
+(ls명령어의 전체경로를 적지 않고) "command not found" 에러가 뜨게 됩니다. 
+
+$ env $PATH  또는 echo $PATH  ->path 확인
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+
+$ export PATH=$PATH:/home/savinci
+​
+
+4.요약
+
+환경변수란 운영체제에 사용되는 변수로, 컴퓨터 시스템 전반에 걸쳐 유지되는 값을 저장한 변수임
+
+환경변수를 설정할려면 export와 env 명령어를 사용함.
+
+export 명령어는 현재 셀와 프로세스에 대해서도 유효하지만 env 명령어는 앞으로 실행될 프로세스에 대해만 유효함.
+
+$PATH 환경변수는 실행 파일을 검색할 디렉토리를 셸을 알려주는 콜론으로 구분된 디렉토리 목록임.
+
+​>uname -r : kernes version
+
+>echo $SHELL : current shell
+>cat /etc/shells : available shells  OR sed
+>/etc/apt ->sources.list
+>dpkg -i(설치), -r(삭제), -ㅣ(확인)
+>/bin(기본명령어),/dev(장치),/etc(설정),/opt(응용),/proc(cpu,memory정보)./sbin(시스템)
+>locale :언어설정확인
+
+>시스템관리 명령어
+ 
+>crontab
+>ss    *sokectTest
+>exec
+>findmnt -l
+>free -h
+>history
+>top or htop
+>jobs -l
+>kill -9 num or %num
+>logrotate
+>man cp
+>mount -av
+>nohup
+>ntp 
+>openssl
+>pgrep -f
+>ps -ef
+>sar 1 -u(cpu), -r(1초간격으로 메모리 사용량 표시), -n SOCK
+>su -, sudo -u
+>systemctl
+>ulimit -a
+>uname -a
+>wait
+>watch -d
+>which
+>yes
+
+-사용자관리 
+
+>groupadd
+>useradd
+
+-파일시스템
+>cd 
+>cp
+>dd
+>df -ahT : file system
+>du -sh ./* :디렉토리 사용량표시
+>find ./ -name 
+>hdparm -t, -T
+>ln -s :심볼릭링크 생성
+>ls -alh
+>lsof i, n, P
+>mkdir
+>mkfs
+>mv
+>rm
+>read
+
+
+
+
+>cat [파일명]  # 파일의 정보를 확인 합니다
+  cat > test.txt   -n(행번호)
+    I LOVE YOU (다 입력 후 CTRL+D, C로 종료 또는 EOF)
+  cat [경로/파일명]  # 경로에 있는 파일명을 확인 합니다
+  cat > text.txt # text.txt 파일을 생성합니다
+  cat file.txt file2.txt file3.txt # file,2,3 내용을 한 번에 확인 합니다
+
+>echo  화면 출력을 담당하는 명령어 ( C의 Print와 비슷 )   파일에 담긴 문자열을 확인할 때 사용 합니다
+  echo [문자열] # 문자열을 출력합니다
+  echo work.txt # work.txt 파일의 문자열을 보여줍니다
+  echo new text > work.txt # new text 문자열을 work.txt 파일에 있던 기존 내용을 삭제하고 추가합니다.
+  echo final text >> work.txt # fianl text 문자열을 work.txt 파일의 끝 줄에 추가합니다.
+  echo $[환경변수명] # 환경변수 내용을 출력합니다.  -e(개행문자 추가 \n)
+
+>alias 명령어에 대한 별명
+  명령어를 축약해서 사용할 수 있게 해준다.
+  alias 별명="명령어" # 명령어를 별명으로 대체해서 사용할 수 있게 해준다.
+  unalias 별명 # 별명 삭제
+  alias # 등록된 별명을 확인
