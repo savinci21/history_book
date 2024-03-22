@@ -41,7 +41,7 @@
 >localhost:5002
 >cd public
 >firebase deploy -> 배포 웹도메인 생성됨 musicblog-11b2e.firebaseapp.com/ …-11b2e.web.app
->after modifying ->firebase deploy
+>after modifying ->firebase deploy ->업로드하면 같은 주소로 생성됨
 
 
 
