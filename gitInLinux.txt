@@ -37,7 +37,7 @@
    
 
 >git pull origin main   ->Remote and local storage files must be the same.
-  ->에러시 git --rebase origin main 명령어를 실행하여 동기화 하면 해결되고 안되면 
+  ->에러시 git pull --rebase origin main 명령어를 실행하여 동기화 하면 해결되고 안되면 
  다시 git pull origin main 실행하여 다시 시도한다
 >git add .  or Files to be modified or added
 >git commit -m "message word"
