@@ -6,3 +6,65 @@
 *root로 돌아갈때는 exit
 *일반계정으로 변경할때
 >su savinci
+
+*linux script 예제 함수사용
+
+>vim sa.sh
+
+#!/bin/bash
+
+sa(){
+  	for item in *; do
+	echo "$item"
+	done
+}
+
+#함수 호출
+sa
+
+-> 실행은 >bash sa.sh 로 실행하거나
+               >chmod +x sa.sh 로 파일에 실행권한을 주어서 파일색인 변함
+               >./sa.sh 로 실행함
+
+*입력 받아서 script 사용
+#!/bin/bash
+
+# 사용자로부터 이름을 입력 받음
+echo "안녕하세요! 이름을 입력하세요:"
+read name
+
+# 입력받은 이름을 환영 메시지와 함께 출력
+echo "환영합니다, $name 님!"
+
+
+*두수를 더하는 위내용을 응용하면 scirpt ->sa.sh
+
+add() {
+    sum=$(( $1 + $2 ))
+    echo "두 수의 합은 $sum 입니다."
+}
+
+echo "첫번째 숫자입력 1"
+read name
+
+echo "첫번째 숫자입력 2"
+read name2
+
+add $name $name2  // 함수 호출 및 입력변수 참조
+
+sa(){
+echo "end"
+}  
+
+      // 함수를 생성하면 자체내 scirpt에서 sa로 호출하거나
+source sa.sh 통해 불러온후 terminal에서 sa함수로 호출가능함
+
+
+>bash sa.sh
+
+>source sa.sh 를 실행하면 
+ sa.sh script에 있는 sa()함수를 terminal에서 불러와져서
+ 재사용 가능함 >sa 만 실행하면 암수가 사용됨
+
+->ln -s  : 바탕하면 바로 가기 
+>ln -s /home/kali/sa.sh  sa.sh
