@@ -43,6 +43,9 @@
 >firebase deploy -> 배포 웹도메인 생성됨 musicblog-11b2e.firebaseapp.com/ …-11b2e.web.app
 >after modifying ->firebase deploy ->업로드하면 같은 주소로 생성됨
 
+>또 다시 deploy 할때 firebase login -> firebase logout -> firebase login ->filrebase cli -> gmail click -> ooop firebase seuccessfuly 
+  -> terminal: firebase deploy 
+
 
 
 
