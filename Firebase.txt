@@ -44,7 +44,7 @@
 >after modifying ->firebase deploy ->업로드하면 같은 주소로 생성됨
 
 >또 다시 deploy 할때 firebase login -> firebase logout -> firebase login ->filrebase cli -> gmail click -> ooop firebase seuccessfuly 
-  -> terminal: firebase deploy 
+  -> terminal: firebase deploy -> yes  *inernet에서 이메일로 승인후 업로드 해야함
  : https://console.firebase.google.com/
 
 
