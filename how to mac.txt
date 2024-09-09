@@ -1,0 +1,13 @@
+* how to download youtube mp3, mp4. -> cmd
+
+1. brew install yt-dlp
+2. yt-dlp -F [URL] -> view list
+3. yt-dlp -f mp4 [URL]
+4. yt-dlp -x --audio-format mp3 [URL]
+
+5. id -> yt-dlp -f 22 [url]   , or 22+33
+
++ yt-dlp --recode-video mp4 [url]
+
+<서체 다운로드>
+*다운로드 후 더불클릭 압축해제 -> 설치  -> 서체관리 앱 ->수정 삭제 가능
