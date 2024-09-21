@@ -1,0 +1,87 @@
+import random
+import spacy
+
+# spaCy 한국어 모델 불러오기
+nlp = spacy.load('ko_core_news_sm')
+
+# 캐릭터 리스트
+characters = ['탐정', '의사', '요리사', '교사', '마법사']
+
+# 배경(장소) 리스트
+locations = ['숲 속 오두막', '대도시의 병원', '고등학교', '해변', '고성']
+
+# 사건 리스트
+events = ['살인 사건을 해결해야 한다', '희귀한 병을 치료해야 한다', '고대 요리법을 찾아야 한다', '수상한 학생을 조사해야 한다', '잃어버린 보물을 찾아야 한다']
+
+# 새로운 문장을 선택하기 위한 함수
+def select_similar_sentence(base_word, options):
+    base_doc = nlp(base_word)  # 기본 단어
+    similarities = []
+    
+    for option in options:
+        option_doc = nlp(option)  # 선택지 단어
+        similarity = base_doc.similarity(option_doc)  # 유사도 계산
+        similarities.append((option, similarity))
+    
+    # 유사도 기준으로 정렬
+    similarities.sort(key=lambda x: x[1], reverse=True)
+    
+    # 유사도가 가장 높은 선택지 반환
+    return similarities[0][0]
+
+# 무작위로 캐릭터, 배경, 사건을 선택
+character = random.choice(characters)
+location = random.choice(locations)
+event = random.choice(events)
+
+# 유사한 단어를 기반으로 새로운 캐릭터, 배경, 사건 선택
+similar_character = select_similar_sentence(character, characters)
+similar_location = select_similar_sentence(location, locations)
+similar_event = select_similar_sentence(event, events)
+
+# 간단한 시나리오 생성
+scenario = f"{similar_character}가(이) {similar_location}에서 {similar_event}."
+
+# 시나리오 출력
+print("유사성을 기반으로 생성된 시나리오:")
+print(scenario)
+
+
+from difflib import SequenceMatcher
+
+# 미리 정의된 문장들
+sentences = [
+    "오늘은 날씨가 정말 좋다.",
+    "나는 파이썬을 공부하고 있다.",
+    "저녁에는 비가 올 것 같다.",
+    "파이썬은 프로그래밍 언어 중 하나이다.",
+    "나는 운동을 좋아한다.",
+   
+]
+
+# 단어를 입력받기
+word = input("찾을 단어를 입력하세요: ")
+
+# 유사도 임계값 설정
+similarity_threshold = 0.5
+
+# 단어가 포함된 문장 찾기
+found = False
+print(f"'{word}'가 포함된 또는 유사한 문장들:")
+for sentence in sentences:
+    # 입력된 단어가 문장에 포함된 경우
+    if word in sentence:
+        print(f"- '{word}'가 포함된 문장: {sentence}")
+        found = True
+    else:
+        # 단어가 포함되지 않은 경우, 유사도 계산
+        matcher = SequenceMatcher(None, word, sentence)
+        similarity = matcher.ratio()
+        
+        # 유사도가 임계값보다 높은 경우
+        if similarity > similarity_threshold:
+            print(f"- '{word}'와 유사한 문장: {sentence} (유사도: {similarity:.2f})")
+            found = True
+
+if not found:
+    print(f"'{word}'를 포함하거나 유사한 문장이 없습니다.")
