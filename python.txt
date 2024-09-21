@@ -1,3 +1,14 @@
+pip install spacy
+python -m spacy download ko_core_news_sm
+
+import spacy
+# 한국어 모델 불러오기
+nlp = spacy.load("ko_core_news_sm")
+
+# 모델의 위치 확인
+print(spacy.util.get_package_path("ko_core_news_sm"))
+
+----------------------------------------------------------------------------------------------
 import random
 import spacy
 
