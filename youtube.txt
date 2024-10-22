@@ -1,0 +1,5 @@
+>brew install yt-dlp
+>yt-dlp <url> ->download
+>yt-dlp -f best <url>
+>yt-dlp -x --audio-format mp3 <url>
+>yt-dlp -o "~/download/%(title)s.%(ext)s" <url>
