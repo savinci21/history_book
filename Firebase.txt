@@ -43,8 +43,15 @@
 >firebase deploy -> 배포 웹도메인 생성됨 musicblog-11b2e.firebaseapp.com/ …-11b2e.web.app
 >after modifying ->firebase deploy ->업로드하면 같은 주소로 생성됨
 
->또 다시 deploy 할때 firebase login -> firebase logout -> firebase login ->filrebase cli -> gmail click -> ooop firebase seuccessfuly 
-  -> terminal: firebase deploy -> yes  *inernet에서 이메일로 승인후 업로드 해야함
+>재업로드시 즉 또 다시 deploy할때
+>터미널열고
+>vincimusic 폴더로 이동
+>firebase login -> 
+  >firebase logout -> 
+  >firebase login -> filrebase cli -> lowdeep1004@gmail.com click internet에서 메일로 승인이 오면 확인후
+   -> ooop firebase seuccessfuly의 화면이 나오면 성공 
+  ->다시  terminal로 돌아와서 
+  > firebase deploy -> yes  -> vincimusin-afd00.web.app(my address)
  : https://console.firebase.google.com/
 
 
